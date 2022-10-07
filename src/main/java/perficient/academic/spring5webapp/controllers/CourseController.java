@@ -1,5 +1,6 @@
 package perficient.academic.spring5webapp.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import perficient.academic.spring5webapp.model.Course;
 import perficient.academic.spring5webapp.services.CourseService;
@@ -11,15 +12,15 @@ import java.util.List;
 @RequestMapping("/courses")
 public class CourseController
 {
-
-	private final CourseService courseService;
+	@Autowired
+	private CourseService courseService;
 
 	public CourseController(CourseService courseService)
 	{
 		this.courseService = courseService;
 	}
 
-	@GetMapping()
+	@GetMapping
 	public List<Course> getCourses()
 	{
 		return courseService.getCourses();
@@ -28,7 +29,7 @@ public class CourseController
 	@GetMapping("/{courseId}")
 	public Course getCourseById(@PathVariable("courseId") Long courseId)
 	{
-		return courseService.getCourseById(courseId).get();
+		return courseService.getCourseById(courseId).orElse(new Course());
 	}
 
 	@GetMapping("/name/{courseName}")

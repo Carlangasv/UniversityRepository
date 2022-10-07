@@ -1,5 +1,6 @@
 package perficient.academic.spring5webapp.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import perficient.academic.spring5webapp.model.Course;
 import perficient.academic.spring5webapp.repositories.CourseRepository;
@@ -11,6 +12,7 @@ import java.util.Optional;
 @Service
 public class CourseService
 {
+	@Autowired
 	private CourseRepository courseRepository;
 
 	public CourseService(CourseRepository courseRepository)
