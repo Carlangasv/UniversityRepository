@@ -17,7 +17,7 @@ public class BootStrapData implements CommandLineRunner
 	}
 
 	@Override
-	public void run(String... args) throws Exception
+	public void run(String... args)
 	{
 		Course math = new Course("Mathematics");
 		Course english = new Course("English");
