@@ -1,20 +1,21 @@
-package perficient.academic.spring5webapp.services;
+package perficient.academic.universityApplication.services;
 
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import perficient.academic.spring5webapp.model.Course;
-import perficient.academic.spring5webapp.repositories.CourseRepository;
+import perficient.academic.universityApplication.model.Course;
+import perficient.academic.universityApplication.repositories.CourseRepository;
+import perficient.academic.universityApplication.services.impl.CourseServiceImpl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
 
 
@@ -25,17 +26,21 @@ class CourseServiceTest
 	private CourseRepository courseRepository;
 
 	@InjectMocks
-	private CourseService courseService;
+	private CourseServiceImpl courseServiceImpl;
+
+	@Test
+	void shouldReturnEmptyList(){
+		assertEquals(Collections.emptyList(), courseServiceImpl.getCourses());
+	}
 
 	@Test
 	void getCourses()
 	{
-		assertEquals(Collections.emptyList(), courseService.getCourses());
 		List<Course> courseList = new ArrayList<>();
 		courseList.add(new Course("Test"));
 		courseList.add(new Course("Test2"));
 		when(courseRepository.findAll()).thenReturn(courseList);
-		assertEquals(courseList, courseService.getCourses());
+		assertEquals(courseList, courseServiceImpl.getCourses());
 	}
 
 	@Test
@@ -43,7 +48,7 @@ class CourseServiceTest
 	{
 		Course course = new Course("Test");
 		when(courseRepository.findById(1L)).thenReturn(Optional.of(course));
-		assertEquals(course, courseService.getCourseById(1L).orElse(new Course()));
+		assertEquals(course, courseServiceImpl.getCourseById(1L).orElse(new Course()));
 	}
 
 	@Test
@@ -51,9 +56,9 @@ class CourseServiceTest
 	{
 		Course course = new Course("Test");
 		when(courseRepository.findCourseByName("Test")).thenReturn(course);
-		assertEquals(course, courseService.getCourseByName("Test"));
+		assertEquals(course, courseServiceImpl.getCourseByName("Test"));
 
 		when(courseRepository.findCourseByName("NullTest")).thenReturn(null);
-		assertNull(courseService.getCourseByName("NullTest"));
+		assertNull(courseServiceImpl.getCourseByName("NullTest"));
 	}
 }

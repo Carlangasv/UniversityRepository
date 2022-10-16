@@ -1,5 +1,4 @@
-package perficient.academic.spring5webapp.model;
-
+package perficient.academic.universityApplication.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,9 +7,11 @@ import lombok.Setter;
 
 
 @Entity
-@Getter @Setter @NoArgsConstructor
-
-public class Course
+@Getter
+@Setter
+@NoArgsConstructor
+@Table(name = "subjects")
+public class Subject
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,7 +19,7 @@ public class Course
 
 	private String name;
 
-	public Course(String name)
+	public Subject(String name)
 	{
 		this.name = name;
 	}

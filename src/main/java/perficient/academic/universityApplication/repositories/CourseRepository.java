@@ -1,7 +1,7 @@
-package perficient.academic.spring5webapp.repositories;
+package perficient.academic.universityApplication.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import perficient.academic.spring5webapp.model.Course;
+import perficient.academic.universityApplication.model.Course;
 
 
 
