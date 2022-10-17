@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Entity
 @Getter
@@ -19,6 +21,9 @@ public class Course
 	private Long id;
 
 	private String name;
+
+	@OneToMany(targetEntity = Subject.class)
+	private List<Subject> subjectList;
 
 	public Course(String name)
 	{

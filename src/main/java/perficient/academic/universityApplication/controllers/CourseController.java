@@ -7,6 +7,7 @@ import perficient.academic.universityApplication.model.Course;
 import perficient.academic.universityApplication.services.CourseService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 @RestController
@@ -26,7 +27,7 @@ public class CourseController
 	@GetMapping("/{courseId}")
 	public Course getCourseById(@PathVariable("courseId") Long courseId)
 	{
-		return getCourseService().getCourseById(courseId).orElse(new Course());
+		return getCourseService().getCourseById(courseId).orElseThrow(NoSuchElementException::new);
 	}
 
 	@GetMapping("/name/{courseName}")
