@@ -1,4 +1,4 @@
-package perficient.academic.universityApplication.model;
+package perficient.academic.universityapplication.model;
 
 
 import jakarta.persistence.*;
@@ -22,7 +22,7 @@ public class Course
 
 	private String name;
 
-	@OneToMany(targetEntity = Subject.class)
+	@OneToMany(mappedBy = "course")
 	private List<Subject> subjectList;
 
 	public Course(String name)
