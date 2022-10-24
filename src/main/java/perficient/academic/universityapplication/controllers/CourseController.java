@@ -1,13 +1,13 @@
-package perficient.academic.universityApplication.controllers;
+package perficient.academic.universityapplication.controllers;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.web.bind.annotation.*;
-import perficient.academic.universityApplication.model.Course;
-import perficient.academic.universityApplication.services.CourseService;
+import perficient.academic.universityapplication.dto.CourseDto;
+import perficient.academic.universityapplication.model.Course;
+import perficient.academic.universityapplication.services.CourseService;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 
 @RestController
@@ -19,25 +19,25 @@ public class CourseController
 	private final CourseService courseService;
 
 	@GetMapping
-	public List<Course> getCourses()
+	public List<CourseDto> getCourses()
 	{
 		return getCourseService().getCourses();
 	}
 
 	@GetMapping("/{courseId}")
-	public Course getCourseById(@PathVariable("courseId") Long courseId)
+	public CourseDto getCourseById(@PathVariable("courseId") Long courseId)
 	{
-		return getCourseService().getCourseById(courseId).orElseThrow(NoSuchElementException::new);
+		return getCourseService().getCourseById(courseId);
 	}
 
 	@GetMapping("/name/{courseName}")
-	public Course getCourseByName(@PathVariable("courseName") String courseName)
+	public CourseDto getCourseByName(@PathVariable("courseName") String courseName)
 	{
 		return getCourseService().getCourseByName(courseName);
 	}
 
 	@PostMapping
-	public Course saveCourse(@RequestBody Course course)
+	public CourseDto saveCourse(@RequestBody Course course)
 	{
 		return getCourseService().saveCourse(course);
 	}

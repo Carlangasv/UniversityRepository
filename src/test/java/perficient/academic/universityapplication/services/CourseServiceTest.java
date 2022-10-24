@@ -1,13 +1,14 @@
-package perficient.academic.universityApplication.services;
+package perficient.academic.universityapplication.services;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import perficient.academic.universityApplication.model.Course;
-import perficient.academic.universityApplication.repositories.CourseRepository;
-import perficient.academic.universityApplication.services.impl.CourseServiceImpl;
+import perficient.academic.universityapplication.dto.CourseDto;
+import perficient.academic.universityapplication.model.Course;
+import perficient.academic.universityapplication.repositories.CourseRepository;
+import perficient.academic.universityapplication.services.impl.CourseServiceImpl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,7 +49,8 @@ class CourseServiceTest
 	{
 		Course course = new Course("Test");
 		when(courseRepository.findById(1L)).thenReturn(Optional.of(course));
-		assertEquals(course, courseServiceImpl.getCourseById(1L).orElse(new Course()));
+		CourseDto courseDto = CourseDto.builder().name(course.getName()).build();
+		assertEquals(courseDto, courseServiceImpl.getCourseById(1L));
 	}
 
 	@Test
@@ -56,7 +58,8 @@ class CourseServiceTest
 	{
 		Course course = new Course("Test");
 		when(courseRepository.findCourseByName("Test")).thenReturn(course);
-		assertEquals(course, courseServiceImpl.getCourseByName("Test"));
+		CourseDto courseDto = CourseDto.builder().name(course.getName()).build();
+		assertEquals(courseDto, courseServiceImpl.getCourseByName("Test"));
 
 		when(courseRepository.findCourseByName("NullTest")).thenReturn(null);
 		assertNull(courseServiceImpl.getCourseByName("NullTest"));

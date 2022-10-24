@@ -1,4 +1,4 @@
-package perficient.academic.universityApplication.model;
+package perficient.academic.universityapplication.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -18,6 +18,10 @@ public class Subject
 	private Long id;
 
 	private String name;
+
+	@ManyToOne
+	@JoinColumn(name = "course_id")
+	private Course course;
 
 	public Subject(String name)
 	{

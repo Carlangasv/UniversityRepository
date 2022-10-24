@@ -1,0 +1,18 @@
+package perficient.academic.universityapplication.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class SubjectDto
+{
+	private Long id;
+	private String name;
+
+}
