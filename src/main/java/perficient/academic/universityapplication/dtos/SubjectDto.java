@@ -1,5 +1,6 @@
-package perficient.academic.universityapplication.dto;
+package perficient.academic.universityapplication.dtos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SubjectDto
 {
-	private Long id;
+	@JsonProperty("name")
 	private String name;
-
 }

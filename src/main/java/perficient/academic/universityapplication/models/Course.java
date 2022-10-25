@@ -1,4 +1,4 @@
-package perficient.academic.universityapplication.model;
+package perficient.academic.universityapplication.models;
 
 
 import jakarta.persistence.*;

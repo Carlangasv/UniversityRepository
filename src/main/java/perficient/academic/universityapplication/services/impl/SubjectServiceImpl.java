@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import perficient.academic.universityapplication.dto.SubjectDto;
-import perficient.academic.universityapplication.model.Subject;
+import perficient.academic.universityapplication.models.Subject;
 import perficient.academic.universityapplication.repositories.SubjectRepository;
 import perficient.academic.universityapplication.services.SubjectService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 @Service
@@ -21,27 +21,28 @@ class SubjectServiceImpl implements SubjectService
 	private final SubjectRepository subjectRepository;
 
 	@Override
-	public List<SubjectDto> getSubjects()
+	public List<Subject> getSubjects()
 	{
-		return getSubjectRepository().findAll().stream().map(subject -> modelMapper.map(subject, SubjectDto.class)).toList();
+		return getSubjectRepository().findAll();
 	}
 
 	@Override
-	public SubjectDto getSubjectById(Long subjectId)
+	public Subject getSubjectById(Long subjectId)
 	{
-		return modelMapper.map(getSubjectRepository().findById(subjectId), SubjectDto.class);
+		return getSubjectRepository().findById(subjectId)
+				.orElseThrow(() -> new NoSuchElementException("No such subject with id " + subjectId));
 	}
 
 	@Override
-	public SubjectDto getSubjectByName(String subjectName)
+	public Subject getSubjectByName(String subjectName)
 	{
-		return modelMapper.map(getSubjectRepository().findSubjectByName(subjectName), SubjectDto.class);
+		return getSubjectRepository().findSubjectByName(subjectName);
 	}
 
 	@Override
-	public SubjectDto saveSubject(Subject newSubject)
+	public Subject saveSubject(Subject newSubject)
 	{
-		return modelMapper.map(getSubjectRepository().save(newSubject), SubjectDto.class);
+		return getSubjectRepository().save(newSubject);
 	}
 
 	@Override
