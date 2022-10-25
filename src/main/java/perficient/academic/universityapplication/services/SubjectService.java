@@ -1,20 +1,19 @@
 package perficient.academic.universityapplication.services;
 
-import perficient.academic.universityapplication.dto.SubjectDto;
-import perficient.academic.universityapplication.model.Subject;
+import perficient.academic.universityapplication.models.Subject;
 
 import java.util.List;
 
 
 public interface SubjectService
 {
-	List<SubjectDto> getSubjects();
+	List<Subject> getSubjects();
 
-	SubjectDto getSubjectById(Long subjectId);
+	Subject getSubjectById(Long subjectId);
 
-	SubjectDto getSubjectByName(String subjectName);
+	Subject getSubjectByName(String subjectName);
 
-	SubjectDto saveSubject(Subject newSubject);
+	Subject saveSubject(Subject newSubject);
 
 	void removeSubject(Long subjectId);
 }

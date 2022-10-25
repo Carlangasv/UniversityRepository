@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import perficient.academic.universityapplication.dto.CourseDto;
-import perficient.academic.universityapplication.model.Course;
+import perficient.academic.universityapplication.models.Course;
 import perficient.academic.universityapplication.repositories.CourseRepository;
 import perficient.academic.universityapplication.services.CourseService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 @Service
@@ -21,27 +21,27 @@ public class CourseServiceImpl implements CourseService
 	private final CourseRepository courseRepository;
 
 	@Override
-	public List<CourseDto> getCourses()
+	public List<Course> getCourses()
 	{
-		return getCourseRepository().findAll().stream().map(course -> modelMapper.map(course, CourseDto.class)).toList();
+		return getCourseRepository().findAll();
 	}
 
 	@Override
-	public CourseDto getCourseById(Long courseId)
+	public Course getCourseById(Long courseId)
 	{
-		return modelMapper.map(getCourseRepository().findById(courseId), CourseDto.class);
+		return getCourseRepository().findById(courseId).orElseThrow(() -> new NoSuchElementException("No such course with id " + courseId));
 	}
 
 	@Override
-	public CourseDto getCourseByName(String courseName)
+	public Course getCourseByName(String courseName)
 	{
-		return modelMapper.map(getCourseRepository().findCourseByName(courseName), CourseDto.class);
+		return getCourseRepository().findCourseByName(courseName);
 	}
 
 	@Override
-	public CourseDto saveCourse(Course newCourse)
+	public Course saveCourse(Course newCourse)
 	{
-		return modelMapper.map(getCourseRepository().save(newCourse), CourseDto.class) ;
+		return getCourseRepository().save(newCourse);
 	}
 
 	@Override

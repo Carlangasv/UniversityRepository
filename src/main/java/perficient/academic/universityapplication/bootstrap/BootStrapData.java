@@ -3,8 +3,8 @@ package perficient.academic.universityapplication.bootstrap;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import perficient.academic.universityapplication.model.Course;
-import perficient.academic.universityapplication.model.Subject;
+import perficient.academic.universityapplication.models.Course;
+import perficient.academic.universityapplication.models.Subject;
 import perficient.academic.universityapplication.repositories.CourseRepository;
 import perficient.academic.universityapplication.repositories.SubjectRepository;
 
@@ -19,10 +19,10 @@ public class BootStrapData implements CommandLineRunner
 	public void run(String... args)
 	{
 
-		Subject subject1 = new Subject("Subject 1");
-		Subject subject2 = new Subject("Subject 2");
-		Subject subject3 = new Subject("Subject 3");
-		Subject subject4 = new Subject("Subject 4");
+		Subject subject1 = new Subject("Subject1");
+		Subject subject2 = new Subject("Subject2");
+		Subject subject3 = new Subject("Subject3");
+		Subject subject4 = new Subject("Subject4");
 		Course math = new Course("Mathematics");
 		Course english = new Course("English");
 		subject1.setCourse(math);
@@ -35,9 +35,5 @@ public class BootStrapData implements CommandLineRunner
 		subjectRepository.save(subject2);
 		subjectRepository.save(subject3);
 		subjectRepository.save(subject4);
-
-
-
-
 	}
 }

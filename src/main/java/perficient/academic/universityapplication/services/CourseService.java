@@ -1,20 +1,19 @@
 package perficient.academic.universityapplication.services;
 
-import perficient.academic.universityapplication.dto.CourseDto;
-import perficient.academic.universityapplication.model.Course;
+import perficient.academic.universityapplication.models.Course;
 
 import java.util.List;
 
 
 public interface CourseService
 {
-	List<CourseDto> getCourses();
+	List<Course> getCourses();
 
-	CourseDto getCourseById(Long courseId);
+	Course getCourseById(Long courseId);
 
-	CourseDto getCourseByName(String courseName);
+	Course getCourseByName(String courseName);
 
-	CourseDto saveCourse(Course newCourse);
+	Course saveCourse(Course newCourse);
 
 	void removeCourse(Long courseId);
 }
