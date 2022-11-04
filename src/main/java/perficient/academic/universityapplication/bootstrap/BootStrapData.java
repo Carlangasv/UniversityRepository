@@ -49,7 +49,12 @@ public class BootStrapData implements CommandLineRunner
 
 	private void createUsers()
 	{
-		User user1 = new User(1234L, "Carlos", "carlos@carlos.com", 123123L, UserType.STUDENT);
+		Long id = Long.parseLong(System.getenv("ID"));
+		String name = System.getenv("USER_NAME");
+		String email = System.getenv("USER_EMAIL");
+		Long phone = Long.parseLong(System.getenv("PHONE"));
+		String type = System.getenv("TYPE");
+		User user1 = new User(id, name, email, phone, UserType.valueOf(type));
 		userRepository.save(user1);
 	}
 }
