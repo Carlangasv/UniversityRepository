@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService
 	@Override
 	public User getUserById(Long userId)
 	{
-		return getUserRepository().findById(userId).orElseThrow(NoSuchElementException::new);
+		return getUserRepository().findById(userId).orElseThrow(() -> new NoSuchElementException("No such user with id " + userId));
 	}
 
 	@Override
