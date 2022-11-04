@@ -25,25 +25,25 @@ public class SubjectController
 	@GetMapping
 	public List<SubjectDto> getSubjects()
 	{
-		return getSubjectService().getSubjects().stream().map(subjectMapper::subjectToSubjectDto).toList();
+		return getSubjectService().getSubjects().stream().map(getSubjectMapper()::subjectToSubjectDto).toList();
 	}
 
 	@GetMapping("/{subjectId}")
 	public SubjectDto getSubjectById(@PathVariable("subjectId") Long subjectId)
 	{
-		return subjectMapper.subjectToSubjectDto(getSubjectService().getSubjectById(subjectId));
+		return getSubjectMapper().subjectToSubjectDto(getSubjectService().getSubjectById(subjectId));
 	}
 
 	@GetMapping("/name/{subjectName}")
 	public SubjectDto getSubjectByName(@PathVariable("subjectName") String subjectname)
 	{
-		return subjectMapper.subjectToSubjectDto(getSubjectService().getSubjectByName(subjectname));
+		return getSubjectMapper().subjectToSubjectDto(getSubjectService().getSubjectByName(subjectname));
 	}
 
 	@PostMapping
 	public SubjectDto saveSubject(@Valid @RequestBody Subject subject)
 	{
-		return subjectMapper.subjectToSubjectDto(subjectService.saveSubject(subject));
+		return getSubjectMapper().subjectToSubjectDto(subjectService.saveSubject(subject));
 	}
 
 	@DeleteMapping("/{subjectId}")
