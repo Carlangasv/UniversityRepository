@@ -25,25 +25,25 @@ public class CourseController
 	@GetMapping
 	public List<CourseDto> getCourses()
 	{
-		return getCourseService().getCourses().stream().map(courseMapper::courseToCourseDto).toList();
+		return getCourseService().getCourses().stream().map(getCourseMapper()::courseToCourseDto).toList();
 	}
 
 	@GetMapping("/{courseId}")
 	public CourseDto getCourseById(@PathVariable("courseId") Long courseId)
 	{
-		return courseMapper.courseToCourseDto(getCourseService().getCourseById(courseId));
+		return getCourseMapper().courseToCourseDto(getCourseService().getCourseById(courseId));
 	}
 
 	@GetMapping("/name/{courseName}")
 	public CourseDto getCourseByName(@PathVariable("courseName") String courseName)
 	{
-		return courseMapper.courseToCourseDto(getCourseService().getCourseByName(courseName));
+		return getCourseMapper().courseToCourseDto(getCourseService().getCourseByName(courseName));
 	}
 
 	@PostMapping
 	public CourseDto saveCourse(@Valid @RequestBody Course course)
 	{
-		return courseMapper.courseToCourseDto(getCourseService().saveCourse(course));
+		return getCourseMapper().courseToCourseDto(getCourseService().saveCourse(course));
 	}
 
 	@DeleteMapping("/{courseId}")
