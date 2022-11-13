@@ -3,13 +3,14 @@ package perficient.academic.universityapplication.bootstrap;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import perficient.academic.universityapplication.enums.UserType;
 import perficient.academic.universityapplication.models.Course;
+import perficient.academic.universityapplication.models.Student;
 import perficient.academic.universityapplication.models.Subject;
-import perficient.academic.universityapplication.models.User;
+import perficient.academic.universityapplication.models.Teacher;
 import perficient.academic.universityapplication.repositories.CourseRepository;
+import perficient.academic.universityapplication.repositories.StudentRepository;
 import perficient.academic.universityapplication.repositories.SubjectRepository;
-import perficient.academic.universityapplication.repositories.UserRepository;
+import perficient.academic.universityapplication.repositories.TeacherRepository;
 
 
 @Component
@@ -18,7 +19,8 @@ public class BootStrapData implements CommandLineRunner
 {
 	private final CourseRepository courseRepository;
 	private final SubjectRepository subjectRepository;
-	private final UserRepository userRepository;
+	private final StudentRepository studentRepository;
+	private final TeacherRepository teacherRepository;
 
 	@Override
 	public void run(String... args)
@@ -53,8 +55,14 @@ public class BootStrapData implements CommandLineRunner
 		String name = System.getenv("USER_NAME");
 		String email = System.getenv("USER_EMAIL");
 		Long phone = Long.parseLong(System.getenv("PHONE"));
-		String type = System.getenv("TYPE");
-		User user1 = new User(id, name, email, phone, UserType.valueOf(type));
-		userRepository.save(user1);
+		Long salary = 123123L;
+		Student user1 = new Student(id, name, email, phone);
+		studentRepository.save(user1);
+
+		Long id2 = 12345L;
+		String name2 = "Profe";
+		String email2 = "profe@profe.com";
+		Teacher teacher1 = new Teacher(id2, name2, email2, phone, salary);
+		teacherRepository.save(teacher1);
 	}
 }

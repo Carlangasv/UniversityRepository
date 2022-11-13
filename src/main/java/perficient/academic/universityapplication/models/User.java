@@ -1,23 +1,23 @@
 package perficient.academic.universityapplication.models;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import perficient.academic.universityapplication.enums.UserType;
 
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-@Table(name = "users")
+@NoArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "my_user")
 public class User
 {
 	@Id
@@ -25,10 +25,10 @@ public class User
 
 	private String name;
 
+	@NotNull
+	@Email
 	private String email;
 
+	@NotNull
 	private Long phone;
-
-	@Enumerated(EnumType.ORDINAL)
-	private UserType userType;
 }

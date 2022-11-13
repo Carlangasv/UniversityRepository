@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import perficient.academic.universityapplication.models.Course;
 import perficient.academic.universityapplication.models.Subject;
 import perficient.academic.universityapplication.repositories.SubjectRepository;
+import perficient.academic.universityapplication.services.CourseService;
 import perficient.academic.universityapplication.services.SubjectService;
 
 import java.util.List;
@@ -19,6 +21,7 @@ class SubjectServiceImpl implements SubjectService
 {
 	private final ModelMapper modelMapper;
 	private final SubjectRepository subjectRepository;
+	private final CourseService courseService;
 
 	@Override
 	public List<Subject> getSubjects()
@@ -49,5 +52,10 @@ class SubjectServiceImpl implements SubjectService
 	public void removeSubject(Long subjectId)
 	{
 		getSubjectRepository().deleteById(subjectId);
+	}
+
+	public boolean checkIfCourseExist(Course course)
+	{
+		return courseService.getCourseById(course.getId()) != null;
 	}
 }
