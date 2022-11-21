@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "subjects")
+@Table(name = "subject")
 public class Subject
 {
 	@Id
@@ -22,6 +22,10 @@ public class Subject
 	@ManyToOne
 	@JoinColumn(name = "course_id")
 	private Course course;
+
+	@ManyToOne
+	@JoinColumn(name = "teacher_id")
+	private Teacher teacher;
 
 	public Subject(String name)
 	{
