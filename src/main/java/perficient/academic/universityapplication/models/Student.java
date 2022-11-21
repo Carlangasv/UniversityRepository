@@ -11,12 +11,12 @@ import perficient.academic.universityapplication.enums.UserType;
 
 @Entity
 @NoArgsConstructor
+@Getter
+@Setter
 @PrimaryKeyJoinColumn(name = "id")
 public class Student extends User
 {
 	@NotNull
-	@Getter
-	@Setter
 	private String role = UserType.STUDENT.toString();
 
 	public Student(Long id, String name,
