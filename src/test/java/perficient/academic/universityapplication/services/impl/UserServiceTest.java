@@ -5,6 +5,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import perficient.academic.universityapplication.models.Student;
+import perficient.academic.universityapplication.models.Teacher;
 import perficient.academic.universityapplication.models.User;
 import perficient.academic.universityapplication.repositories.UserRepository;
 
@@ -84,5 +86,19 @@ class UserServiceTest
 		assertEquals(userList, userService.getUsers());
 		userService.removeUser(user1.getId());
 		assertEquals(userList, userService.getUsers());
+	}
+
+	@Test
+	void shouldCreateStudent(){
+		User user1 = new Student(1234L, "Carlos", "carlos@carlos.com", 123123213L);
+		when(userRepository.save(user1)).thenReturn(user1);
+		assertEquals(user1, userService.saveUser(user1));
+	}
+
+	@Test
+	void shouldCreateTeacher(){
+		User user1 = new Teacher(1234L, "Carlos", "carlos@carlos.com", 123123213L, 20000L);
+		when(userRepository.save(user1)).thenReturn(user1);
+		assertEquals(user1, userService.saveUser(user1));
 	}
 }

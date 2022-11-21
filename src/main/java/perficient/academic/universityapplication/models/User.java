@@ -38,4 +38,12 @@ public class User
 
 	@NotNull
 	private Long phone;
+
+	public User(Long governmentId, String name, String email, Long phone)
+	{
+		this.governmentId = governmentId;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+	}
 }
