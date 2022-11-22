@@ -5,7 +5,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import perficient.academic.universityapplication.enums.UserType;
+import perficient.academic.universityapplication.models.Student;
+import perficient.academic.universityapplication.models.Teacher;
 import perficient.academic.universityapplication.models.User;
 import perficient.academic.universityapplication.repositories.UserRepository;
 
@@ -39,8 +40,8 @@ class UserServiceTest
 	void shouldReturnUserList()
 	{
 		List<User> userList = new ArrayList<>();
-		userList.add(new User(1234L, "test", "test@test.com", 123123L, UserType.STUDENT));
-		userList.add(new User(12345L, "test2", "test2@test.com", 123123L, UserType.TEACHER));
+		userList.add(new User(1234L, "test", "test@test.com", 123123L));
+		userList.add(new User(12345L, "test2", "test2@test.com", 123123L));
 		when(userRepository.findAll()).thenReturn(userList);
 		assertEquals(userList, userService.getUsers());
 	}
@@ -48,7 +49,7 @@ class UserServiceTest
 	@Test
 	void shouldReturnUserWithId()
 	{
-		User user1 = new User(1234L, "Carlos", "carlos@carlos.com", 123123L, UserType.STUDENT);
+		User user1 = new User(1234L, "Carlos", "carlos@carlos.com", 123123L);
 		when(userRepository.findById(user1.getId())).thenReturn(Optional.of(user1));
 		assertEquals(user1, userService.getUserById(user1.getId()));
 	}
@@ -63,7 +64,7 @@ class UserServiceTest
 	@Test
 	void shouldReturnUserWithEmail()
 	{
-		User user1 = new User(1234L, "Carlos", "carlos@carlos.com", 123123L, UserType.STUDENT);
+		User user1 = new User(1234L, "Carlos", "carlos@carlos.com", 123123L);
 		when(userRepository.findUserByEmail(user1.getEmail())).thenReturn(user1);
 		assertEquals(user1, userService.getUserByEmail(user1.getEmail()));
 	}
@@ -71,19 +72,33 @@ class UserServiceTest
 	@Test
 	void shouldSaveUser()
 	{
-		User user1 = new User(1234L, "Carlos", "carlos@carlos.com", 123123L, UserType.STUDENT);
+		User user1 = new User(1234L, "Carlos", "carlos@carlos.com", 123123L);
 		when(userRepository.save(user1)).thenReturn(user1);
 		assertEquals(user1, userService.saveUser(user1));
 	}
 
 	@Test
 	void shouldRemoveUser(){
-		User user1 = new User(1234L, "Carlos", "carlos@carlos.com", 123123L, UserType.STUDENT);
+		User user1 = new User(1234L, "Carlos", "carlos@carlos.com", 123123L);
 		List<User> userList = new ArrayList<>();
 		userList.add(user1);
 		when(userRepository.findAll()).thenReturn(userList);
 		assertEquals(userList, userService.getUsers());
 		userService.removeUser(user1.getId());
 		assertEquals(userList, userService.getUsers());
+	}
+
+	@Test
+	void shouldCreateStudent(){
+		User user1 = new Student(1234L, "Carlos", "carlos@carlos.com", 123123213L);
+		when(userRepository.save(user1)).thenReturn(user1);
+		assertEquals(user1, userService.saveUser(user1));
+	}
+
+	@Test
+	void shouldCreateTeacher(){
+		User user1 = new Teacher(1234L, "Carlos", "carlos@carlos.com", 123123213L, 20000L);
+		when(userRepository.save(user1)).thenReturn(user1);
+		assertEquals(user1, userService.saveUser(user1));
 	}
 }

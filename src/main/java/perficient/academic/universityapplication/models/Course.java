@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "courses")
+@Table(name = "course")
 public class Course
 {
 	@Id
