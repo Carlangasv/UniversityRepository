@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import perficient.academic.universityapplication.enums.UserType;
 
+
 @Entity
 @NoArgsConstructor
 @Getter
@@ -20,8 +21,8 @@ public class Student extends User
 	private String role = UserType.STUDENT.toString();
 
 	public Student(Long id, String name,
-			@NotNull @Email String email, @NotNull Long phone)
+			@NotNull @Email String email, @NotNull Long phone, @NotNull String password)
 	{
-		super(id, name, email, phone);
+		super(id, name, email, phone, password);
 	}
 }

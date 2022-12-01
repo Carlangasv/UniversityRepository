@@ -2,6 +2,7 @@ package perficient.academic.universityapplication.services.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.stereotype.Service;
 import perficient.academic.universityapplication.models.Teacher;
 import perficient.academic.universityapplication.repositories.TeacherRepository;
 import perficient.academic.universityapplication.services.TeacherService;
@@ -9,7 +10,7 @@ import perficient.academic.universityapplication.services.TeacherService;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-
+@Service
 @AllArgsConstructor
 @Getter
 public class TeacherServiceImpl implements TeacherService

@@ -2,6 +2,7 @@ package perficient.academic.universityapplication.bootstrap;
 
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import perficient.academic.universityapplication.models.Course;
 import perficient.academic.universityapplication.models.Student;
@@ -21,6 +22,7 @@ public class BootStrapData implements CommandLineRunner
 	private final SubjectRepository subjectRepository;
 	private final StudentRepository studentRepository;
 	private final TeacherRepository teacherRepository;
+	private final PasswordEncoder passwordEncoder;
 
 	@Override
 	public void run(String... args)
@@ -55,14 +57,15 @@ public class BootStrapData implements CommandLineRunner
 		String name = System.getenv("USER_NAME");
 		String email = System.getenv("USER_EMAIL");
 		Long phone = Long.parseLong(System.getenv("PHONE"));
+		String password = System.getenv("PASSWORD");
 		Long salary = 123123L;
-		Student user1 = new Student(id, name, email, phone);
+		Student user1 = new Student(id, name, email, phone, passwordEncoder.encode(password));
 		studentRepository.save(user1);
 
 		Long id2 = 12345L;
 		String name2 = "Profe";
 		String email2 = "profe@profe.com";
-		Teacher teacher1 = new Teacher(id2, name2, email2, phone, salary);
+		Teacher teacher1 = new Teacher(id2, name2, email2, phone, salary, passwordEncoder.encode(password));
 		teacherRepository.save(teacher1);
 	}
 }

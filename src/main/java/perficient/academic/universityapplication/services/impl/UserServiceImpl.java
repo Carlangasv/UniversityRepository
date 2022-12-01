@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService
 	@Override
 	public User getUserByEmail(String email)
 	{
-		return getUserRepository().findUserByEmail(email);
+		return getUserRepository().findUserByEmail(email).orElseThrow(() -> new NoSuchElementException("No such user with email " + email));
 	}
 
 	@Override
