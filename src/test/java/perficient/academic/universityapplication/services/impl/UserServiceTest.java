@@ -40,8 +40,8 @@ class UserServiceTest
 	void shouldReturnUserList()
 	{
 		List<User> userList = new ArrayList<>();
-		userList.add(new User(1234L, "test", "test@test.com", 123123L));
-		userList.add(new User(12345L, "test2", "test2@test.com", 123123L));
+		userList.add(new User(1234L, "test", "test@test.com", 123123L, "1234"));
+		userList.add(new User(12345L, "test2", "test2@test.com", 123123L, "1234"));
 		when(userRepository.findAll()).thenReturn(userList);
 		assertEquals(userList, userService.getUsers());
 	}
@@ -49,7 +49,7 @@ class UserServiceTest
 	@Test
 	void shouldReturnUserWithId()
 	{
-		User user1 = new User(1234L, "Carlos", "carlos@carlos.com", 123123L);
+		User user1 = new User(1234L, "Carlos", "carlos@carlos.com", 123123L, "1234");
 		when(userRepository.findById(user1.getId())).thenReturn(Optional.of(user1));
 		assertEquals(user1, userService.getUserById(user1.getId()));
 	}
@@ -64,22 +64,23 @@ class UserServiceTest
 	@Test
 	void shouldReturnUserWithEmail()
 	{
-		User user1 = new User(1234L, "Carlos", "carlos@carlos.com", 123123L);
-		when(userRepository.findUserByEmail(user1.getEmail())).thenReturn(user1);
+		User user1 = new User(1234L, "Carlos", "carlos@carlos.com", 123123L, "1234");
+		when(userRepository.findUserByEmail(user1.getEmail())).thenReturn(Optional.of(user1));
 		assertEquals(user1, userService.getUserByEmail(user1.getEmail()));
 	}
 
 	@Test
 	void shouldSaveUser()
 	{
-		User user1 = new User(1234L, "Carlos", "carlos@carlos.com", 123123L);
+		User user1 = new User(1234L, "Carlos", "carlos@carlos.com", 123123L, "1234");
 		when(userRepository.save(user1)).thenReturn(user1);
 		assertEquals(user1, userService.saveUser(user1));
 	}
 
 	@Test
-	void shouldRemoveUser(){
-		User user1 = new User(1234L, "Carlos", "carlos@carlos.com", 123123L);
+	void shouldRemoveUser()
+	{
+		User user1 = new User(1234L, "Carlos", "carlos@carlos.com", 123123L,"1234");
 		List<User> userList = new ArrayList<>();
 		userList.add(user1);
 		when(userRepository.findAll()).thenReturn(userList);
@@ -89,15 +90,17 @@ class UserServiceTest
 	}
 
 	@Test
-	void shouldCreateStudent(){
-		User user1 = new Student(1234L, "Carlos", "carlos@carlos.com", 123123213L);
+	void shouldCreateStudent()
+	{
+		User user1 = new Student(1234L, "Carlos", "carlos@carlos.com", 123123213L, "1234");
 		when(userRepository.save(user1)).thenReturn(user1);
 		assertEquals(user1, userService.saveUser(user1));
 	}
 
 	@Test
-	void shouldCreateTeacher(){
-		User user1 = new Teacher(1234L, "Carlos", "carlos@carlos.com", 123123213L, 20000L);
+	void shouldCreateTeacher()
+	{
+		User user1 = new Teacher(1234L, "Carlos", "carlos@carlos.com", 123123213L, 20000L, "1234");
 		when(userRepository.save(user1)).thenReturn(user1);
 		assertEquals(user1, userService.saveUser(user1));
 	}

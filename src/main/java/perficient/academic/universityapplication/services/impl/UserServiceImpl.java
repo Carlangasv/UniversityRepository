@@ -2,7 +2,6 @@ package perficient.academic.universityapplication.services.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import perficient.academic.universityapplication.models.User;
 import perficient.academic.universityapplication.repositories.UserRepository;
@@ -17,7 +16,6 @@ import java.util.NoSuchElementException;
 @Getter
 public class UserServiceImpl implements UserService
 {
-	private final ModelMapper modelMapper;
 	private final UserRepository userRepository;
 
 	@Override
@@ -35,7 +33,7 @@ public class UserServiceImpl implements UserService
 	@Override
 	public User getUserByEmail(String email)
 	{
-		return getUserRepository().findUserByEmail(email);
+		return getUserRepository().findUserByEmail(email).orElseThrow(() -> new NoSuchElementException("No such user with email " + email));
 	}
 
 	@Override

@@ -24,9 +24,9 @@ public class Teacher extends User
 	private Long salary;
 
 	public Teacher(Long id, String name,
-			@NotNull @Email String email, @NotNull Long phone, Long salary)
+			@NotNull @Email String email, @NotNull Long phone, Long salary, @NotNull String password)
 	{
-		super(id, name, email, phone);
+		super(id, name, email, phone, password);
 		this.salary = salary;
 	}
 }
