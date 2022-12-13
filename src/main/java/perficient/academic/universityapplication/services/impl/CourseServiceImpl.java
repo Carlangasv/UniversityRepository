@@ -2,7 +2,6 @@ package perficient.academic.universityapplication.services.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import perficient.academic.universityapplication.models.Course;
 import perficient.academic.universityapplication.models.Subject;
@@ -20,7 +19,6 @@ import java.util.NoSuchElementException;
 @Getter
 public class CourseServiceImpl implements CourseService
 {
-	private final ModelMapper modelMapper;
 	private final CourseRepository courseRepository;
 	private final SubjectRepository subjectRepository;
 

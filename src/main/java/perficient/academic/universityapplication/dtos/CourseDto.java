@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseDto
+public class  CourseDto
 {
 	@JsonProperty("name")
 	private String name;
