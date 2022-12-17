@@ -15,5 +15,7 @@ public interface SubjectService
 
 	Subject saveSubject(Subject newSubject);
 
+	Subject updateSubjectById(Long subjectId, Subject updatedSubject);
+
 	void removeSubject(Long subjectId);
 }

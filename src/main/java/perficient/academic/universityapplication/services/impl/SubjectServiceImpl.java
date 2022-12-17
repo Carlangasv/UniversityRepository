@@ -39,7 +39,8 @@ class SubjectServiceImpl implements SubjectService
 	@Override
 	public Subject getSubjectByName(String subjectName)
 	{
-		return getSubjectRepository().findSubjectByName(subjectName);
+		return getSubjectRepository().findSubjectByName(subjectName)
+				.orElseThrow(() -> new NoSuchElementException("No such subject with name " + subjectName));
 	}
 
 	@Override
@@ -52,6 +53,17 @@ class SubjectServiceImpl implements SubjectService
 	public void removeSubject(Long subjectId)
 	{
 		getSubjectRepository().deleteById(subjectId);
+	}
+
+	@Override
+	public Subject updateSubjectById(Long subjectId, Subject updatedSubject)
+	{
+		Subject subject = getSubjectById(subjectId);
+		subject.setName(updatedSubject.getName());
+		subject.setCourse(updatedSubject.getCourse());
+		subject.setTeacher(updatedSubject.getTeacher());
+		saveSubject(subject);
+		return subject;
 	}
 
 	public boolean checkIfCourseExist(Course course)

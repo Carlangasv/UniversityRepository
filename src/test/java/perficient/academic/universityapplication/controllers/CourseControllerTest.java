@@ -1,44 +1,51 @@
 package perficient.academic.universityapplication.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import perficient.academic.universityapplication.mappers.CourseMapper;
-import perficient.academic.universityapplication.models.Course;
 import perficient.academic.universityapplication.services.CourseService;
 
-import java.util.List;
-
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
 
 
-@WebMvcTest(CourseController.class)
 class CourseControllerTest
 {
-	@MockBean
+	@Mock
 	private CourseService courseService;
 
-	@MockBean
+	@Mock
 	private CourseMapper courseMapper;
 
-	@Autowired
-	private ObjectMapper objectMapper;
-
-	@Autowired
 	private MockMvc mockMvc;
 
-	@Test
-	void getAllCourses() throws Exception
-	{
-		Course course = new Course("Maths1");
-		when(courseService.getCourses()).thenReturn(List.of(course));
+	static final String ROUTE = "/courses";
 
-		mockMvc.perform(get("/courses").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+	@BeforeEach
+	public void setUp()
+	{
+		MockitoAnnotations.openMocks(this);
+		CourseController controller = new CourseController(courseService, courseMapper);
+		this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 	}
+
+	@Test
+	void shouldReturnOk() throws Exception
+	{
+		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(ROUTE).contentType(MediaType.APPLICATION_JSON))
+				.andReturn();
+		verify(courseService,Mockito.times(1)).getCourses();
+		assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
+	}
+
+
 }
