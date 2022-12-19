@@ -1,5 +1,6 @@
 package perficient.academic.universityapplication.services.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.NoSuchElementException;
 @Service
 @AllArgsConstructor
 @Getter
+@Transactional
 public class StudentServiceImpl implements StudentService
 {
 
@@ -59,6 +61,6 @@ public class StudentServiceImpl implements StudentService
 	@Override
 	public void removeStudentByGovernmentId(Long governmentId)
 	{
-		getStudentRepository().removeByGovernmentId(governmentId);
+		getStudentRepository().deleteByGovernmentId(governmentId);
 	}
 }

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import perficient.academic.universityapplication.dtos.TeacherDto;
+import perficient.academic.universityapplication.mappers.TeacherMapper;
 import perficient.academic.universityapplication.models.Teacher;
 import perficient.academic.universityapplication.services.TeacherService;
 
@@ -25,34 +27,36 @@ public class TeacherController
 {
 	private final TeacherService teacherService;
 
+	private final TeacherMapper teacherMapper;
+
 	@GetMapping
-	public List<Teacher> getTeachers()
+	public List<TeacherDto> getTeachers()
 	{
-		return getTeacherService().getTeachers();
+		return getTeacherService().getTeachers().stream().map(getTeacherMapper()::teacherToTeacherDto).toList();
 	}
 
 	@GetMapping("/{teacherId}")
-	public Teacher getTeacherById(@PathVariable("teacherId") Long teacherId)
+	public TeacherDto getTeacherById(@PathVariable("teacherId") Long teacherId)
 	{
-		return getTeacherService().getTeacherById(teacherId);
+		return getTeacherMapper().teacherToTeacherDto(getTeacherService().getTeacherById(teacherId));
 	}
 
 	@GetMapping("/government/{governmentId}")
-	public Teacher getTeacherByGovernmentId(@PathVariable("governmentId") Long governmentId)
+	public TeacherDto getTeacherByGovernmentId(@PathVariable("governmentId") Long governmentId)
 	{
-		return getTeacherService().getTeacherByGovernmentId(governmentId);
+		return getTeacherMapper().teacherToTeacherDto(getTeacherService().getTeacherByGovernmentId(governmentId));
 	}
 
 	@GetMapping("/email/{teacherEmail}")
-	public Teacher getTeacherByEmail(@PathVariable("teacherEmail") String teacherEmail)
+	public TeacherDto getTeacherByEmail(@PathVariable("teacherEmail") String teacherEmail)
 	{
-		return getTeacherService().getTeacherByEmail(teacherEmail);
+		return getTeacherMapper().teacherToTeacherDto(getTeacherService().getTeacherByEmail(teacherEmail));
 	}
 
 	@PostMapping
-	public Teacher saveTeacher(@Valid @RequestBody Teacher newTeacher)
+	public TeacherDto saveTeacher(@Valid @RequestBody Teacher newTeacher)
 	{
-		return getTeacherService().saveTeacher(newTeacher);
+		return getTeacherMapper().teacherToTeacherDto(getTeacherService().saveTeacher(newTeacher));
 	}
 
 	@DeleteMapping("/{teacherId}")
