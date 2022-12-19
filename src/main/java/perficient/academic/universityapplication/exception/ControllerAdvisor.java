@@ -21,6 +21,7 @@ import java.util.NoSuchElementException;
 public class ControllerAdvisor extends ResponseEntityExceptionHandler
 {
 	private static final String MESSAGE = "message";
+
 	@ExceptionHandler(NoSuchElementException.class)
 	public ResponseEntity<Object> handleNoSuchElementException(NoSuchElementException ex, WebRequest request)
 	{
@@ -35,22 +36,29 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler
 	{
 		Map<String, Object> body = new HashMap<>();
 		String[] message = ex.getMessage().split("default message");
-		body.put(MESSAGE, message[2].replaceAll("[\\[\\](){}]",""));
+		body.put(MESSAGE, message[2].replaceAll("[\\[\\](){}]", ""));
 		return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(EmptyResultDataAccessException.class)
-	public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request){
+	public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request)
+	{
 		Map<String, Object> body = new HashMap<>();
 		body.put(MESSAGE, ex.getMessage().split("models.")[1].replace("exists", "doesn't exists"));
 		return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(org.postgresql.util.PSQLException.class)
-	public ResponseEntity<Object> handlePSQLException(PSQLException ex, WebRequest request){
+	public ResponseEntity<Object> handlePSQLException(PSQLException ex, WebRequest request)
+	{
 		Map<String, Object> body = new HashMap<>();
-		if(ex.getSQLState().equals("23505")){
+		if (ex.getSQLState().equals("23505"))
+		{
 			body.put(MESSAGE, "Government id or email already in use");
+		}
+		else if (ex.getSQLState().equals("23503"))
+		{
+			body.put(MESSAGE, "The object can't be deleted because it violates a constraint");
 		}
 		return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
 	}

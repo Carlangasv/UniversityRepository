@@ -28,7 +28,8 @@ Dillinger uses a number of open source projects to work properly:
 
 ## Available endpoints
 
-The available endpoints are collected in a postman JSON
+The available endpoints are collected in a postman JSON.
+This is located in the file postman_collection.json
 
 ## License
 
