@@ -1,5 +1,6 @@
 package perficient.academic.universityapplication.exception;
 
+import org.postgresql.util.PSQLException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -43,5 +44,14 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler
 		Map<String, Object> body = new HashMap<>();
 		body.put(MESSAGE, ex.getMessage().split("models.")[1].replace("exists", "doesn't exists"));
 		return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler(org.postgresql.util.PSQLException.class)
+	public ResponseEntity<Object> handlePSQLException(PSQLException ex, WebRequest request){
+		Map<String, Object> body = new HashMap<>();
+		if(ex.getSQLState().equals("23505")){
+			body.put(MESSAGE, "Government id or email already in use");
+		}
+		return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
 	}
 }
