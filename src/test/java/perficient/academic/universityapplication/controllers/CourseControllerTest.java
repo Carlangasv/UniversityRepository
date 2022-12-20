@@ -74,7 +74,7 @@ class CourseControllerTest
 	@Test
 	void saveCourseShouldReturnOk() throws Exception
 	{
-		Course course = new Course("Mathemathics");
+		Course course = new Course("Mathematics");
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
 		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
