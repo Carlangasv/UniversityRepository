@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,15 +42,21 @@ public class SubjectController
 	}
 
 	@GetMapping("/name/{subjectName}")
-	public SubjectDto getSubjectByName(@PathVariable("subjectName") String subjectname)
+	public SubjectDto getSubjectByName(@PathVariable("subjectName") String subjectName)
 	{
-		return getSubjectMapper().subjectToSubjectDto(getSubjectService().getSubjectByName(subjectname));
+		return getSubjectMapper().subjectToSubjectDto(getSubjectService().getSubjectByName(subjectName));
 	}
 
 	@PostMapping
 	public SubjectDto saveSubject(@Valid @RequestBody Subject subject)
 	{
 		return getSubjectMapper().subjectToSubjectDto(subjectService.saveSubject(subject));
+	}
+
+	@PutMapping("/{subjectId}")
+	public SubjectDto updateSubjectById(@PathVariable("subjectId") Long subjectId, @Valid @RequestBody Subject updatedSubject)
+	{
+		return getSubjectMapper().subjectToSubjectDto(subjectService.updateSubjectById(subjectId, updatedSubject));
 	}
 
 	@DeleteMapping("/{subjectId}")

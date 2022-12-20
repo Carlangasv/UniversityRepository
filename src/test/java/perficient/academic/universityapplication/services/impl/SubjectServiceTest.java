@@ -60,19 +60,21 @@ class SubjectServiceTest
 	void shouldReturnSubjectWithName()
 	{
 		Subject subject = new Subject("Subject 1");
-		when(subjectRepository.findSubjectByName(subject.getName())).thenReturn(subject);
+		when(subjectRepository.findSubjectByName(subject.getName())).thenReturn(Optional.of(subject));
 		assertEquals(subject, subjectService.getSubjectByName(subject.getName()));
 	}
 
 	@Test
-	void shouldSaveSubject(){
+	void shouldSaveSubject()
+	{
 		Subject subject = new Subject("Subject 1");
 		when(subjectRepository.save(subject)).thenReturn(subject);
 		assertEquals(subject, subjectService.saveSubject(subject));
 	}
 
 	@Test
-	void shouldRemoveCourse(){
+	void shouldRemoveCourse()
+	{
 		Subject subject = new Subject("Subject 1");
 		List<Subject> subjectList = new ArrayList<>();
 		subjectList.add(subject);

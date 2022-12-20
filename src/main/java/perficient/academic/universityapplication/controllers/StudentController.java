@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import perficient.academic.universityapplication.dtos.StudentDto;
+import perficient.academic.universityapplication.mappers.StudentMapper;
 import perficient.academic.universityapplication.models.Student;
 import perficient.academic.universityapplication.services.StudentService;
 
@@ -24,34 +26,36 @@ public class StudentController
 {
 	private final StudentService studentService;
 
+	private final StudentMapper studentMapper;
+
 	@GetMapping
-	public List<Student> getStudents()
+	public List<StudentDto> getStudents()
 	{
-		return getStudentService().getStudents();
+		return getStudentService().getStudents().stream().map(getStudentMapper()::studentToStudentDto).toList();
 	}
 
 	@GetMapping("/{studentId}")
-	public Student getStudentById(@PathVariable("studentId") Long studentId)
+	public StudentDto getStudentById(@PathVariable("studentId") Long studentId)
 	{
-		return getStudentService().getStudentById(studentId);
+		return getStudentMapper().studentToStudentDto(getStudentService().getStudentById(studentId));
 	}
 
 	@GetMapping("/email/{studentEmail}")
-	public Student getStudentByEmail(@PathVariable("studentEmail") String studentEmail)
+	public StudentDto getStudentByEmail(@PathVariable("studentEmail") String studentEmail)
 	{
-		return getStudentService().getStudentByEmail(studentEmail);
+		return getStudentMapper().studentToStudentDto(getStudentService().getStudentByEmail(studentEmail));
 	}
 
 	@GetMapping("/government/{governmentId}")
-	public Student getStudentByGovernmentId(@PathVariable("governmentId") Long governmentId)
+	public StudentDto getStudentByGovernmentId(@PathVariable("governmentId") Long governmentId)
 	{
-		return getStudentService().getStudentByGovernmentId(governmentId);
+		return getStudentMapper().studentToStudentDto(getStudentService().getStudentByGovernmentId(governmentId));
 	}
 
 	@PostMapping
-	public Student saveStudent(@Valid @RequestBody Student student)
+	public StudentDto saveStudent(@Valid @RequestBody Student student)
 	{
-		return getStudentService().saveStudent(student);
+		return getStudentMapper().studentToStudentDto(getStudentService().saveStudent(student));
 	}
 
 	@DeleteMapping("/{studentId}")

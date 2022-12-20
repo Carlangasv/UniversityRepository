@@ -27,19 +27,19 @@ public class User
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@NotNull
+	@NotNull(message = "Government id must not be null")
 	private Long governmentId;
 
 	private String name;
 
-	@NotNull
+	@NotNull(message = "Email must not be null")
 	@Email
 	private String email;
 
-	@NotNull
+	@NotNull(message = "Phone must not be null")
 	private Long phone;
 
-	@NotNull
+	@NotNull(message = "Password must not be null")
 	private String password;
 
 	public User(Long governmentId, String name, String email, Long phone, String password)

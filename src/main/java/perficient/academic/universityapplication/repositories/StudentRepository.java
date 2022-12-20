@@ -9,5 +9,5 @@ public interface StudentRepository extends JpaRepository<Student, Long>
 
 	Student getStudentByGovernmentId(Long governmentId);
 
-	void removeByGovernmentId(Long governmentId);
+	void deleteByGovernmentId(Long governmentId);
 }

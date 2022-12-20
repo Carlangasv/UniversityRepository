@@ -27,11 +27,10 @@ public class BootStrapData implements CommandLineRunner
 	@Override
 	public void run(String... args)
 	{
-		createSubjectsAndCourses();
 		createUsers();
 	}
 
-	private void createSubjectsAndCourses()
+	private void createSubjectsAndCourses(Teacher teacher)
 	{
 		Subject subject1 = new Subject("Subject1");
 		Subject subject2 = new Subject("Subject2");
@@ -40,6 +39,7 @@ public class BootStrapData implements CommandLineRunner
 		Course math = new Course("Mathematics");
 		Course english = new Course("English");
 		subject1.setCourse(math);
+		subject1.setTeacher(teacher);
 		subject2.setCourse(math);
 		subject3.setCourse(english);
 		subject4.setCourse(english);
@@ -67,5 +67,7 @@ public class BootStrapData implements CommandLineRunner
 		String email2 = "profe@profe.com";
 		Teacher teacher1 = new Teacher(id2, name2, email2, phone, salary, passwordEncoder.encode(password));
 		teacherRepository.save(teacher1);
+
+		createSubjectsAndCourses(teacher1);
 	}
 }
